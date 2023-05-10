@@ -22,7 +22,7 @@ exports.createUser =  (req, res) => {
 exports.updateUser = (req, res) => {
     
     const {id}= req.params;
-    const { username, email, password } = request.body
+    const { username, email, password } = req.body;
     userModel.findByIdAndUpdate(id, {username, email, password}, { new: true })
     .then(user => {
         if(!user)throw new Error('user whith id ${id} not found');
@@ -36,7 +36,7 @@ exports.deleteUser = (req, res) => {
     
     const {id}= req.params;
     
-    userModel.findByIdDelete(id, {username, email, password}, { new: true })
+    userModel.findByIdAndDelete(id)
     .then(user => {
         if(!user)throw new Error('user whith id ${id} not found');
         res.status(200).json( {message:'user deleted'})
